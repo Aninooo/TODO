@@ -4,25 +4,34 @@ function ToDoList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
-  // Load tasks from localStorage when the component mounts
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
+      try {
+        const parsedTasks = JSON.parse(savedTasks);
+        if (Array.isArray(parsedTasks)) {
+          setTasks(parsedTasks);
+        } else {
+          console.error('Invalid tasks format in localStorage');
+        }
+      } catch (error) {
+        console.error('Error parsing tasks from localStorage', error);
+      }
     }
   }, []);
 
-  // Save tasks to localStorage whenever the tasks state changes
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    try {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    } catch (error) {
+      console.error('Error saving tasks to localStorage', error);
+    }
   }, [tasks]);
 
-  // Handle input change
   function handleInputChange(event) {
     setNewTask(event.target.value);
   }
 
-  // Add a new task
   function addTask() {
     if (newTask.trim() !== '') {
       setTasks((t) => [...t, { text: newTask, completed: false }]);
@@ -30,20 +39,17 @@ function ToDoList() {
     }
   }
 
-  // Toggle task completion status
   function toggleTaskCompletion(index) {
     const updatedTasks = [...tasks];
     updatedTasks[index].completed = !updatedTasks[index].completed;
     setTasks(updatedTasks);
   }
 
-  // Delete a task
   function deleteTask(index) {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
   }
 
-  // Move task up in the list
   function moveTaskUp(index) {
     if (index > 0) {
       const updatedTasks = [...tasks];
@@ -55,7 +61,6 @@ function ToDoList() {
     }
   }
 
-  // Move task down in the list
   function moveTaskDown(index) {
     if (index < tasks.length - 1) {
       const updatedTasks = [...tasks];
