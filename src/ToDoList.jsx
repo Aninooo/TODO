@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Down from "./assets/icons8-down-30.png"
+import Up from "./assets/icons8-up-30.png"
 
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
@@ -96,10 +98,10 @@ function ToDoList() {
               Delete
             </button>
             <button className="move-button" onClick={() => moveTaskUp(index)}>
-              Up
+              <img className='up' src={Up} alt="" />
             </button>
             <button className="move-button" onClick={() => moveTaskDown(index)}>
-              Down
+             <img className='down' src={Down} alt="" />
             </button>
           </li>
         ))}

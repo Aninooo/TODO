@@ -6,42 +6,54 @@ body{
 .to-do-list{
   color: white;
   margin-top: 100px;
-  font-size: 30px;
+  font-size: 15px;
 }
 button{
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
-  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 80px;
+  height: 40px;
+  margin: 1px;
 }
 .add-button{
-  background-color: yellow;
+  
+  background-color: green;
 }
 .add-button:hover{
-  background-color: aqua;
+  background-color: rgb(16, 102, 16);
 }
 .delete-button{
+  background-color: rgb(204, 54, 54);
+  transition: background-color 0.80s;
+  padding: 10px;
+}
+.delete-button:hover{
   background-color: red;
 }
 .move-button{
-  background-color: blue;
+  background-color: rgb(57, 57, 131);
+}
+.move-button:hover{
+  background-color: rgb(36, 36, 119);
 }
 input[type="text"]{
-  font-size: 20px;
+  font-size: 15px;
   padding: 10px;
   border: 2px solid hsla(0, 05, 80%, 0.5);
 }
 li{
-  padding: 15px;
+  padding: 5px;
   margin-bottom: 10px;
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: bold;
   border: 3px solid hsla(0, 85%, 0.75);
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: rgb(241, 241, 241);
+  border-radius: 4px 4px 4px 4px;
 }
 .text{
   flex: 1;
@@ -49,4 +61,13 @@ li{
   flex-shrink: 1;
   flex-basis: 0%;
   color: black;
+}
+.up{
+  height: 40px;
+  width: 40px;
+  
+}
+.down{
+  height: 40px;
+  width: 40px;
 }
