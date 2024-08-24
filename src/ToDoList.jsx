@@ -12,27 +12,38 @@ function ToDoList() {
     }
   }, []);
 
-  // Save tasks to localStorage whenever tasks change
+  // Save tasks to localStorage whenever the tasks state changes
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
+  // Handle input change
   function handleInputChange(event) {
     setNewTask(event.target.value);
   }
 
+  // Add a new task
   function addTask() {
     if (newTask.trim() !== '') {
-      setTasks((t) => [...t, newTask]);
+      setTasks((t) => [...t, { text: newTask, completed: false }]);
       setNewTask('');
     }
   }
 
+  // Toggle task completion status
+  function toggleTaskCompletion(index) {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  }
+
+  // Delete a task
   function deleteTask(index) {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
   }
 
+  // Move task up in the list
   function moveTaskUp(index) {
     if (index > 0) {
       const updatedTasks = [...tasks];
@@ -44,6 +55,7 @@ function ToDoList() {
     }
   }
 
+  // Move task down in the list
   function moveTaskDown(index) {
     if (index < tasks.length - 1) {
       const updatedTasks = [...tasks];
@@ -71,21 +83,17 @@ function ToDoList() {
       </div>
       <ol>
         {tasks.map((task, index) => (
-          <li key={index}>
-            <span className="text">{task}</span>
-            <button
-              className="delete-button"
-              onClick={() => deleteTask(index)}
-            >
+          <li key={index} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+            <span className="text" onClick={() => toggleTaskCompletion(index)}>
+              {task.text}
+            </span>
+            <button className="delete-button" onClick={() => deleteTask(index)}>
               Delete
             </button>
             <button className="move-button" onClick={() => moveTaskUp(index)}>
               Up
             </button>
-            <button
-              className="move-button"
-              onClick={() => moveTaskDown(index)}
-            >
+            <button className="move-button" onClick={() => moveTaskDown(index)}>
               Down
             </button>
           </li>
